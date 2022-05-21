@@ -1,19 +1,39 @@
 import tkinter as tk
+import hashlib
 
 APP_NAME = "Phokus"
 
 messagedisplay, timedisplay = "Yes", "Yes"
 
 
+def fail(e, p):
+    ...
+
+
 def validate_login():
+    e = email.get()
+    p = password.get()
+    pdigest = hashlib.sha512(bytes(p,encoding="utf-8")).hexdigest()
+    f = open("users.txt")
+    if e + "\n" in f.readlines(): # known user
+        g = open("credentials.login")
+        for i in g.readlines():
+            if i.startswith(e + " "):
+                if i == e + " " + pdigest + "\n":
+                    main_screen_window()
+                    return True
+                fail(e, p)
+                return False
+        g.close()
+    f.close()
     with open("credentials.login", "w") as credentials_file:
-        credentials_file.write(email.get()+"\n"+password.get())
+        credentials_file.write(e+" "+pdigest+"\n")
 
     with open("users.txt", "w") as users:
-        users.write(email.get() + "\n")
+        users.write(e + "\n")
 
     main_screen_window()
-    return
+    return True
 
 
 def main_screen_window():
