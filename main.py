@@ -1,5 +1,6 @@
 import os
 import smtplib as smtp
+import math
 
 with open('goals.txt', 'r+') as goal_file:
     goals = goal_file.readlines()
@@ -12,8 +13,8 @@ with open('goals.txt', 'r+') as goal_file:
     print(goal_times)
     print(goal_names)
 
-def pomodoro(goal_times, goal_names):
-    print("placeholder")
+def pomodoro(goal_times):
+    current_goal_time = goal_times[0]
 
 def email_setup():
     print("placeholder")
