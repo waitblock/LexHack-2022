@@ -5,7 +5,7 @@ import actual_stuff as stf
 
 APP_NAME = "Phokus"
 
-messagedisplay, timedisplay = "Yes", "Yes"
+messagedisplay, timedisplay, main_screen = "   "
 
 
 def fail(e, p):
@@ -37,48 +37,50 @@ def validate_login():
     with open("users.txt", "w") as users:
         users.write(e + "\n")
 
-    main_screen_window()
+    notif_window()
     return True
 
 
 def main_screen_window():
-    notif_window()
+    global main_screen
     root.wm_withdraw()
     main_screen = tk.Tk()
     main_screen.title(APP_NAME)
     main_screen.geometry('800x600')
     main_screen.resizable(False, False)
 
-    title = tk.Label(main_screen, text=APP_NAME)
-    title.config(font=("TkDefaultFont", 40))
-    title.grid(row=0, column=0)
-
-    buddy_button = tk.Button(main_screen, text="Buddy Chat/\nTime Remaining", width=20, height=10)
-    buddy_button.grid(row=1, column=10)
-
-    pomodoro_button = tk.Button(main_screen, text="Pomodoro Timer", width=20, height=10)
-    pomodoro_button.grid(row=1, column=20)
-
-    music_button = tk.Button(main_screen, text="Mood Music", width=20, height=10)
-    music_button.grid(row=2, column=10)
-
-    meditation_button = tk.Button(main_screen, text="Meditation", width=20, height=10)
-    meditation_button.grid(row=2, column=20)
-
-    stf.mainwindow(str(email.get()), str(password.get()), main_screen, buddy_button, pomodoro_button, music_button, meditation_button, prnt, showtimer)
-
-    main_screen.mainloop()
-
-
-def notif_window():
     global messagedisplay, timedisplay
-    nwindow = tk.Tk()
+    nwindow = tk.Frame(main_screen)
     # message display
     messagedisplay = tk.Label(nwindow, text="")
     messagedisplay.grid(row=0, column=0)  # help
     # time display
     timedisplay = tk.Label(nwindow, text="")
     timedisplay.grid(row=0, column=1)  # help
+
+    nwindow.grid(row=0, columnspan=2)
+
+    title = tk.Label(main_screen, text=APP_NAME)
+    title.config(font=("TkDefaultFont", 40))
+    title.grid(row=1, column=0)
+
+    buddy_button = tk.Button(main_screen, text="Buddy Chat/\nTime Remaining", width=20, height=10)
+    buddy_button.grid(row=2, column=10)
+
+    pomodoro_button = tk.Button(main_screen, text="Pomodoro Timer", width=20, height=10)
+    pomodoro_button.grid(row=2, column=20)
+
+    music_button = tk.Button(main_screen, text="Mood Music", width=20, height=10)
+    music_button.grid(row=3, column=10)
+
+    meditation_button = tk.Button(main_screen, text="Meditation", width=20, height=10)
+    meditation_button.grid(row=3, column=20)
+    main_screen.update()
+    stf.mainwindow(main_screen.update, str(email.get()), str(password.get()), main_screen, buddy_button, pomodoro_button, music_button,
+                   meditation_button, prnt, showtimer)
+    #main_screen.after(1, lambda: stf.mainwindow(str(email.get()), str(password.get()), main_screen, buddy_button, pomodoro_button, music_button, meditation_button, prnt, showtimer))
+    main_screen.mainloop()
+
 
 
 def main():
@@ -107,9 +109,11 @@ def main():
 
 def prnt(text):
     messagedisplay.config(text=text)
+    main_screen.update()
     print(text)
 
     
 def showtimer(text):
     timedisplay.config(text=text)
+    main_screen.update()
     #print(text)
