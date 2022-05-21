@@ -40,6 +40,7 @@ def validate_login():
 
 
 def main_screen_window():
+    notif_window()
     root.wm_withdraw()
     main_screen = tk.Tk()
     main_screen.title(APP_NAME)
@@ -65,6 +66,17 @@ def main_screen_window():
     main_screen.mainloop()
 
 
+def notif_window():
+    global messagedisplay, timedisplay
+    nwindow = tk.Tk()
+    # message display
+    messagedisplay = tk.Label(nwindow, text="")
+    messagedisplay.grid(row=0, column=0)  # help
+    # time display
+    timedisplay = tk.Label(nwindow, text="")
+    timedisplay.grid(row=0, column=1)  # help
+
+
 def main():
     global root, messagedisplay, timedisplay
     root = tk.Tk()
@@ -75,12 +87,6 @@ def main():
     title = tk.Label(root, text="Login")
     title.config(font=("TkDefaultFont", 30))
     title.grid(row=0, column=0)
-    # message display
-    messagedisplay = tk.Label(root, text="")
-    messagedisplay.grid(row=1, column=0)#help
-    # time display
-    timedisplay = tk.Label(root, text="")
-    timedisplay.grid(row=2, column=0)#help
     # Get email
     tk.Label(root, text="Email").grid(row=1, column=0)
     global email
