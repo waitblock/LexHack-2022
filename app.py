@@ -19,7 +19,7 @@ def main_screen_window():
     title = tk.Label(main_screen, text=APP_NAME)
     title.config(font=("TkDefaultFont", 40))
     title.grid(row=0, column=0)
-    buddy_button = tk.Button(main_screen, text="Buddy Chat\n/Time Remaining", width=20, height=10)
+    buddy_button = tk.Button(main_screen, text="Buddy Chat/\nTime Remaining", width=20, height=10)
     buddy_button.grid(row=1, column=10)
     pomodoro_button = tk.Button(main_screen, text="Pomodoro Timer", width=20, height=10)
     pomodoro_button.grid(row=1, column=20)
