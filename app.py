@@ -3,12 +3,20 @@ import tkinter as tk
 
 def validateLogin():
     with open("credentials.login", "w") as credentials_file:
-        credentials_file.write(email.get())
+        credentials_file.write(email.get()+"\n")
         credentials_file.write(password.get())
+    goToMainScreen()
     return
 
 
+def goToMainScreen():
+    main_screen = tk.Toplevel(root)
+    root.wm_withdraw()
+    main_screen.mainloop()
+
+
 def main():
+    global root
     root = tk.Tk()
     root.title('App Name')
     root.geometry('300x200')
