@@ -37,7 +37,7 @@ def validate_login():
     with open("users.txt", "w") as users:
         users.write(e + "\n")
 
-    notif_window()
+    main_screen()
     return True
 
 
