@@ -54,6 +54,3 @@ def pomodoro(goal_times):
             timer -= 1
 
     goal_times.remove(0)
-
-def email_setup():
-    print("placeholder")
