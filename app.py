@@ -2,6 +2,8 @@ import tkinter as tk
 
 APP_NAME = "Phokus"
 
+messagedisplay, timedisplay = "Yes", "Yes"
+
 
 def validate_login():
     with open("credentials.login", "w") as credentials_file:
@@ -41,7 +43,7 @@ def main_screen_window():
 
 
 def main():
-    global root
+    global root, messagedisplay, timedisplay
     root = tk.Tk()
     root.title(f'{APP_NAME}--Login')
     root.geometry('300x200')
@@ -50,6 +52,12 @@ def main():
     title = tk.Label(root, text="Login")
     title.config(font=("TkDefaultFont", 30))
     title.grid(row=0, column=0)
+    # message display
+    messagedisplay = tk.Label(root, text="")
+    messagedisplay.grid(row=1, column=0)#help
+    # time display
+    timedisplay = tk.Label(root, text="")
+    timedisplay.grid(row=2, column=0)#help
     # Get email
     tk.Label(root, text="Email").grid(row=1, column=0)
     global email
@@ -61,4 +69,14 @@ def main():
     password = tk.StringVar()
     tk.Entry(root, textvariable=password, show="*").grid(row=2, column=1)
     tk.Button(root, text="Login", command=validate_login).grid(row=4, column=0)
+
     root.mainloop()
+
+def prnt(text):
+    messagedisplay.update(text=text)
+    print(text)
+
+    
+def showtimer(text):
+    timedisplay.update(text=text)
+    #print(text)
