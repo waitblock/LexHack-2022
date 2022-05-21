@@ -2,7 +2,7 @@ import tkinter as tk
 
 APP_NAME = "Phokus"
 
-messagedisplay = "Yes"
+messagedisplay, timedisplay = "Yes", "Yes"
 
 
 def validate_login():
@@ -34,7 +34,7 @@ def main_screen_window():
 
 
 def main():
-    global root, messagedisplay
+    global root, messagedisplay, timedisplay
     root = tk.Tk()
     root.title(f'{APP_NAME}--Login')
     root.geometry('300x200')
@@ -45,7 +45,10 @@ def main():
     title.grid(row=0, column=0)
     # message display
     messagedisplay = tk.Label(root, text="")
-    message.grid(row=1, column=0)#help
+    messagedisplay.grid(row=1, column=0)#help
+    # time display
+    timedisplay = tk.Label(root, text="")
+    timedisplay.grid(row=1, column=0)#help
     # Get email
     tk.Label(root, text="Email").grid(row=1, column=0)
     global email
@@ -63,3 +66,8 @@ def main():
 def prnt(text):
     messagedisplay.update(text=text)
     print(text)
+
+    
+def showtimer(text):
+    timedisplay.update(text=text)
+    #print(text)
