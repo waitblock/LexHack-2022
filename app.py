@@ -1,5 +1,5 @@
 import tkinter as tk
-import hashlib
+import hashlib, re
 
 APP_NAME = "Phokus"
 
@@ -14,6 +14,9 @@ def validate_login():
     e = email.get()
     p = password.get()
     pdigest = hashlib.sha512(bytes(p,encoding="utf-8")).hexdigest()
+    if not re.match(r"^\S{1,}@\S{2,}\.\S{2,}$", e):
+        fail("e, p")
+        return False
     f = open("users.txt")
     if e + "\n" in f.readlines(): # known user
         g = open("credentials.login")
