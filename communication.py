@@ -29,4 +29,14 @@ with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
         print("Sent")
     except Exception as e:
         print(e)
-    
+
+def broadcast(thing):
+    with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as serve:
+        try:
+            serve.login(email_username, email_password)
+
+            for user in users:
+                serve.sendmail(email_username, users_emails, thing)
+            print("Sent")
+        except Exception as e:
+            print(e)
