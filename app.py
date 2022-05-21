@@ -15,7 +15,7 @@ def validate_login():
     p = password.get()
     pdigest = hashlib.sha512(bytes(p,encoding="utf-8")).hexdigest()
     if not re.match(r"^\S{1,}@\S{2,}\.\S{2,}$", e):
-        fail("e, p")
+        fail(e, p)
         return False
     f = open("users.txt")
     if e + "\n" in f.readlines(): # known user
