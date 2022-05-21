@@ -29,7 +29,7 @@ def pomodoro(goal_times, goal_names):
     while timer > 0:
             m = timer // 60
             s = timer % 60
-            print('{:02d}:{:02d}'.format(m, s))
+            showtimer('{:02d}:{:02d}'.format(m, s))
             time.sleep(1)
             timer -= 1
     
@@ -39,7 +39,7 @@ def pomodoro(goal_times, goal_names):
         while timer > 0:
             m = timer // 60
             s = timer % 60
-            print('{:02d}:{:02d}'.format(m, s))
+            showtimer('{:02d}:{:02d}'.format(m, s))
             time.sleep(1)
             timer -= 1
         prnt("Time to take a break")
@@ -48,7 +48,7 @@ def pomodoro(goal_times, goal_names):
         while timer > 0:
             m = timer // 60
             s = timer % 60
-            print('{:02d}:{:02d}'.format(m, s))
+            showtimer('{:02d}:{:02d}'.format(m, s))
             time.sleep(1)
             timer -= 1
         print("Get back to work")
@@ -58,7 +58,7 @@ def pomodoro(goal_times, goal_names):
     while timer > 0:
             m = timer // 60
             s = timer % 60
-            print('{:02d}:{:02d}'.format(m, s))
+            showtimer('{:02d}:{:02d}'.format(m, s))
             time.sleep(1)
             timer -= 1
 
