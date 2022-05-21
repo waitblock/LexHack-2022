@@ -1,6 +1,8 @@
 import app
 import time
 
+from app import prnt
+
 
 def main():
     app.main()
@@ -22,7 +24,7 @@ with open('goals.txt', 'r+') as goal_file:
 
 def pomodoro(goal_times, goal_names):
     current_goal_time = goal_times[0]
-    print("Please get rid of any distractions")
+    prnt("Please get rid of any distractions")
     timer = 5*60
     while timer > 0:
             m = timer // 60
@@ -31,7 +33,7 @@ def pomodoro(goal_times, goal_names):
             time.sleep(1)
             timer -= 1
     
-    print("Begin your work")
+    prnt("Begin your work")
     for i in range(current_goal_time // 25):
         timer = 25*60
         while timer > 0:
@@ -40,7 +42,7 @@ def pomodoro(goal_times, goal_names):
             print('{:02d}:{:02d}'.format(m, s))
             time.sleep(1)
             timer -= 1
-        print("Time to take a break")
+        prnt("Time to take a break")
 
         timer = 5*60
         while timer > 0:
@@ -51,7 +53,7 @@ def pomodoro(goal_times, goal_names):
             timer -= 1
         print("Get back to work")
 
-    print("Time to review your work")
+    prnt("Time to review your work")
     timer = 5*60
     while timer > 0:
             m = timer // 60
