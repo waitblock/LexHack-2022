@@ -255,3 +255,5 @@ fabric.properties
 
 # Project files ignore
 credentials.login
+goals.txt
+users.txt
