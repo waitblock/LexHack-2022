@@ -1,22 +1,48 @@
 import tkinter as tk
+import hashlib, re
+
+import actual_stuff as stf
 
 APP_NAME = "Phokus"
 
 messagedisplay, timedisplay = "Yes", "Yes"
 
 
+def fail(e, p):
+    ...
+
+
 def validate_login():
+    e = str(email.get())
+    p = str(password.get())
+    pdigest = hashlib.sha512(bytes(p,encoding="utf-8")).hexdigest()
+    if not re.match(r"^\S{1,}@\S{2,}\.\S{2,}$", e):
+        fail(e, p)
+        return False
+    f = open("users.txt")
+    if e + "\n" in f.readlines(): # known user
+        g = open("credentials.login")
+        for i in g.readlines():
+            if i.startswith(e + " "):
+                if i == e + " " + pdigest + "\n":
+                    main_screen_window()
+                    return True
+                fail(e, p)
+                return False
+        g.close()
+    f.close()
     with open("credentials.login", "w") as credentials_file:
-        credentials_file.write(email.get()+"\n"+password.get())
+        credentials_file.write(e+" "+pdigest+"\n")
 
     with open("users.txt", "w") as users:
-        users.write(email.get() + "\n")
+        users.write(e + "\n")
 
     main_screen_window()
-    return
+    return True
 
 
 def main_screen_window():
+    notif_window()
     root.wm_withdraw()
     main_screen = tk.Tk()
     main_screen.title(APP_NAME)
@@ -39,7 +65,20 @@ def main_screen_window():
     meditation_button = tk.Button(main_screen, text="Meditation", width=20, height=10)
     meditation_button.grid(row=2, column=20)
 
+    stf.mainwindow(str(email.get()), str(password.get()), main_screen, buddy_button, pomodoro_button, music_button, meditation_button, prnt, showtimer)
+
     main_screen.mainloop()
+
+
+def notif_window():
+    global messagedisplay, timedisplay
+    nwindow = tk.Tk()
+    # message display
+    messagedisplay = tk.Label(nwindow, text="")
+    messagedisplay.grid(row=0, column=0)  # help
+    # time display
+    timedisplay = tk.Label(nwindow, text="")
+    timedisplay.grid(row=0, column=1)  # help
 
 
 def main():
@@ -52,12 +91,6 @@ def main():
     title = tk.Label(root, text="Login")
     title.config(font=("TkDefaultFont", 30))
     title.grid(row=0, column=0)
-    # message display
-    messagedisplay = tk.Label(root, text="")
-    messagedisplay.grid(row=1, column=0)#help
-    # time display
-    timedisplay = tk.Label(root, text="")
-    timedisplay.grid(row=2, column=0)#help
     # Get email
     tk.Label(root, text="Email").grid(row=1, column=0)
     global email
@@ -73,10 +106,10 @@ def main():
     root.mainloop()
 
 def prnt(text):
-    messagedisplay.update(text=text)
+    messagedisplay.config(text=text)
     print(text)
 
     
 def showtimer(text):
-    timedisplay.update(text=text)
+    timedisplay.config(text=text)
     #print(text)

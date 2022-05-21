@@ -26,20 +26,34 @@ for user in users_emails:
     users_emails[users_emails.index(user)] = user.replace('\n', '')
     print(user)
 
+'''
 login_lines = login_details.readlines()
-email_username = login_lines[0]
-email_password = login_lines[1]
-
-message = f"""\
+ln = login_lines[0]
+email_username, email_password = ln.split(" ")
+email_password = email_password.replace("\n", "")
+'''
+def do(username, password, goal_names, goal_times):
+    message = f"""\
 Subject: Procrastination Accountability Buddy
 
-{email_username.partition('@')[0]} is looking for an accountability buddy to do their homework with. Their goals are {', '.join(goal_names)} and they want to spend {' minutes, '.join(goal_times)} minutes on those tasks respectively"""
+{username.partition('@')[0]} is looking for an accountability buddy to do their homework with. Their goals are {', '.join(goal_names)} and they want to spend {' minutes, '.join(goal_times)} minutes on those tasks respectively"""
 
-with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
-    try:
-        server.login(email_username, email_password)
-        print(users_emails)
-        server.sendmail(email_username, users_emails, message)
-        print("Sent")
-    except Exception as e:
-        print(e)
+    with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
+        try:
+            server.login(username, password)
+            server.sendmail(username, users_emails, message)
+            print("Sent")
+        except Exception as e:
+            print(e)
+
+    def broadcast(thing):
+        with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as serve:
+            try:
+                serve.login(username, password)
+
+                for user in users:
+                    serve.sendmail(username, users_emails, thing)
+                print("Sent")
+            except Exception as e:
+                print(e)
+    return broadcast
