@@ -48,7 +48,7 @@ def main():
     messagedisplay.grid(row=1, column=0)#help
     # time display
     timedisplay = tk.Label(root, text="")
-    timedisplay.grid(row=1, column=0)#help
+    timedisplay.grid(row=2, column=0)#help
     # Get email
     tk.Label(root, text="Email").grid(row=1, column=0)
     global email
