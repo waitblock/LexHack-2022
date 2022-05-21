@@ -1,7 +1,13 @@
-import os
-import smtplib as smtp
-import math
+import app
 import time
+
+
+def main():
+    app.main()
+
+
+if __name__ == "__main__":
+    main()
 
 with open('goals.txt', 'r+') as goal_file:
     goals = goal_file.readlines()
