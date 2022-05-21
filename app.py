@@ -1,6 +1,8 @@
 import tkinter as tk
 import hashlib, re
 
+import actual_stuff as stf
+
 APP_NAME = "Phokus"
 
 messagedisplay, timedisplay = "Yes", "Yes"
@@ -11,8 +13,8 @@ def fail(e, p):
 
 
 def validate_login():
-    e = email.get()
-    p = password.get()
+    e = str(email.get())
+    p = str(password.get())
     pdigest = hashlib.sha512(bytes(p,encoding="utf-8")).hexdigest()
     if not re.match(r"^\S{1,}@\S{2,}\.\S{2,}$", e):
         fail(e, p)
@@ -63,6 +65,8 @@ def main_screen_window():
     meditation_button = tk.Button(main_screen, text="Meditation", width=20, height=10)
     meditation_button.grid(row=2, column=20)
 
+    stf.mainwindow(str(email.get()), str(password.get()), main_screen, buddy_button, pomodoro_button, music_button, meditation_button, prnt, showtimer)
+
     main_screen.mainloop()
 
 
@@ -102,10 +106,10 @@ def main():
     root.mainloop()
 
 def prnt(text):
-    messagedisplay.update(text=text)
+    messagedisplay.config(text=text)
     print(text)
 
     
 def showtimer(text):
-    timedisplay.update(text=text)
+    timedisplay.config(text=text)
     #print(text)

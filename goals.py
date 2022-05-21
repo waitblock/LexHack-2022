@@ -4,7 +4,7 @@ import math
 with open('goals.txt', 'r+') as goal_file:
     goals = goal_file.readlines()
     goal_names = [line.partition('[')[0].replace('\n', '') for line in goals]
-    goal_times = [line.partition('[')[2].replace(']', '').replace('\n', '') for line in goals]
+    goal_times = [int(line.partition('[')[2].replace(']', '').replace('\n', '')) for line in goals]
 
     if goal_names[-1] == ' ':
         goal_names.pop()
