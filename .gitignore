@@ -110,4 +110,4 @@ goals.txt
 users.txt
 
 # google account leaks?
-sendmail/token.json
+mail/token.json
