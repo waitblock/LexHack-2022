@@ -9,6 +9,7 @@ import actual_stuff as stf
 APP_NAME = "Phokus"
 
 messagedisplay, timedisplay, main_screen = "   "
+ws = ""
 
 
 def fail(e, p):
@@ -43,6 +44,18 @@ def validate_login():
 
     with open("users.txt", "w") as users:
         users.write(e + "\n")
+
+    w = workspace.get()
+    global ws, send, service
+    from mail import sendmail
+    send, service = sendmail.main()
+    if "@" in workspace:
+        msg = send(e, "Phokus Workspace", e.split("@")[0]+" has invited you to a new workspace.", workspace)
+        print(msg)
+        ws = msg["threadId"]
+        send(e, "Phokus Workspace", "Use the code "+ws+" to join.", workspace, ws)
+    else:
+        ws = workspace
 
     main_screen_window()
     return True
@@ -133,6 +146,11 @@ def main():
     global password
     password = tk.StringVar()
     tk.Entry(root, textvariable=password, show="*").grid(row=2, column=1)
+    # Get workspace
+    tk.Label(root, text="Workspace").grid(row=3, column=0)
+    global workspace
+    workspace = tk.StringVar()
+    tk.Entry(root, textvariable=workspace).grid(row=3, column=1)
     tk.Button(root, text="Login", command=validate_login).grid(row=4, column=0)
 
     root.mainloop()

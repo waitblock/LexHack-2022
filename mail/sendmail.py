@@ -1,4 +1,4 @@
-import auth
+from mail import auth
 from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 import base64

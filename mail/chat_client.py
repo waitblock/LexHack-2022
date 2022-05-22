@@ -1,6 +1,6 @@
 from googleapiclient.discovery import build
 import tkinter as tk
-import sendmail
+from mail import sendmail
 import base64
 import time
 
