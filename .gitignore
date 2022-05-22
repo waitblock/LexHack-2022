@@ -111,7 +111,7 @@ users.txt
 meditate.app/*
 
 # google account leaks?
-mail/token.json
+token.json
 
 # pycache
 __pycache__/
