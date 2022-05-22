@@ -23,24 +23,21 @@ def show_frame(frame):
 
 def validate_login():
     e = str(email.get())
-    
-
     w = workspace.get()
-    global ws, send, service
+    global ws, send, service, partners
     from mail import sendmail
     send, service = sendmail.main()
     if "@" in w:
-        msg = send(e, "Phokus Workspace", e.split("@")
-                   [0]+" has invited you to a new workspace.", w)
-        print(msg)
+        msg = send(e, "Phokus Workspace", e.split("@")[0] + " has invited you to a new workspace.", w)
+
         ws = msg["id"]
-        print(ws)
-        send(e, "Phokus Workspace", "Use the code "+ws+" to join.", w, ws)
+        send(e, "Phokus Workspace", "Use the code " + ws + " to join.", w, ws)
+        partners = w
     else:
         ws = w
-
+        th = service.users().threads().get(userId="me", id=ws).execute()["messages"][-1]
+        partners = sendmail.get_field(th, "to") + "," + sendmail.get_field(th, "from")
     main_screen_window()
-    return True
 
 
 def open_meditation():
@@ -94,10 +91,7 @@ def main_screen_window():
 
     main_screen.update()
     stf.mainwindow(main_screen.update, str(email.get()), str(password.get()), main_screen, buddy_button, pomodoro_button, music_button,
-                   meditation_button, prnt, showtimer)
-    main_screen.after(1, lambda: stf.mainwindow(str(email.get()), str(password.get(
-    )), main_screen, buddy_button, pomodoro_button, music_button, meditation_button, prnt, showtimer))
-    main_screen.mainloop()
+                   meditation_button, prnt, showtimer, ws, partners)
 
 
 def main():
