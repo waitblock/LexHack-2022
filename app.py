@@ -90,7 +90,7 @@ def main_screen_window():
     meditation_button.grid(row=3, column=20)
 
     main_screen.update()
-    stf.mainwindow(main_screen.update, str(email.get()), str(password.get()), main_screen, buddy_button, pomodoro_button, music_button,
+    stf.mainwindow(main_screen.update, str(email.get()), main_screen, buddy_button, pomodoro_button, music_button,
                    meditation_button, prnt, showtimer, ws, partners)
 
 
@@ -109,11 +109,6 @@ def main():
     global email
     email = tk.StringVar()
     tk.Entry(root, textvariable=email).grid(row=1, column=1)
-    # Get password
-    tk.Label(root, text="Password").grid(row=2, column=0)
-    global password
-    password = tk.StringVar()
-    tk.Entry(root, textvariable=password, show="*").grid(row=2, column=1)
     # Get workspace
     tk.Label(root, text="Workspace").grid(row=3, column=0)
     global workspace
