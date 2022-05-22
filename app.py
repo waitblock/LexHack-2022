@@ -17,8 +17,7 @@ def fail(e, p):
 
 def show_frame(frame):
     frame.tkraise()
-
-
+    
 def validate_login():
     e = str(email.get())
     p = str(password.get())
@@ -68,9 +67,6 @@ def main_screen_window():
     main_screen.geometry('800x600')
     main_screen.resizable(False, False)
 
-    buddy_frame = tk.Frame(root)
-    music_frame = tk.Frame(root)
-
     global messagedisplay, timedisplay
     nwindow = tk.Frame(main_screen)
     # message display
@@ -87,18 +83,15 @@ def main_screen_window():
     title.grid(row=1, column=0)
 
     buddy_button = tk.Button(
-        main_screen, text="Buddy Chat/\nTime Remaining", width=20, height=10, command=lambda: show_frame(buddy_frame))
+        main_screen, text="Buddy Chat/\nTime Remaining", width=20, height=10)
     buddy_button.grid(row=2, column=10)
-
-    buddy_frame_title=  tk.Label(buddy_frame, text='Page 1', font='times 35', bg='red')
-    buddy_frame_title.pack(fill='both', expand=True)
 
     pomodoro_button = tk.Button(
         main_screen, text="Pomodoro Timer", width=20, height=10)
     pomodoro_button.grid(row=2, column=20)
 
     music_button = tk.Button(
-        main_screen, text="Mood Music", width=20, height=10, command=lambda: show_frame(music_frame))
+        main_screen, text="Mood Music", width=20, height=10)
     music_button.grid(row=3, column=10)
 
     meditation_button = tk.Button(

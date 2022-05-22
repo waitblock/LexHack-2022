@@ -111,3 +111,6 @@ users.txt
 
 # google account leaks?
 mail/token.json
+
+# pycache
+__pycache__/
