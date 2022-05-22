@@ -19,7 +19,7 @@ def chat_client(email, workspace, members, root):
                 widget.pack()
     def send_message(message):
         send(email, "Phokus", message, members, thread=workspace)
-        widget = tk.Label(chat, text=message, bg="#00A0FF")
+        widget = tk.Label(chat, text="Me: "+message, bg="#9ee3ff")
         widget.pack()
     bar = tk.Entry(window)
     button = tk.Button(window, text="Send")
@@ -30,7 +30,12 @@ def chat_client(email, workspace, members, root):
     for i in messages:
         # print(i)
         service.users().messages().modify(userId='me', id=i["id"], body={'removeLabelIds': ['UNREAD']}).execute()
-        widget = tk.Label(chat, text=str(base64.urlsafe_b64decode(i["payload"]["body"]["data"]), encoding="utf-8"))
+        h = i["payload"]["headers"]
+        author = "Unknown"
+        for j in h:
+            if j["name"] == "From":
+                author = j["value"]
+        widget = tk.Label(chat, text=author+": "+str(base64.urlsafe_b64decode(i["payload"]["body"]["data"]), encoding="utf-8"))
         widget.pack()
     while True:
         time.sleep(0.05)
