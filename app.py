@@ -23,28 +23,7 @@ def show_frame(frame):
 
 def validate_login():
     e = str(email.get())
-    p = str(password.get())
-    pdigest = hashlib.sha512(bytes(p, encoding="utf-8")).hexdigest()
-    if not re.match(r"^\S{1,}@\S{2,}\.\S{2,}$", e):
-        fail(e, p)
-        return False
-    f = open("users.txt")
-    if e + "\n" in f.readlines():  # known user
-        g = open("credentials.login")
-        for i in g.readlines():
-            if i.startswith(e + " "):
-                if i == e + " " + pdigest + "\n":
-                    main_screen_window()
-                    return True
-                fail(e, p)
-                return False
-        g.close()
-    f.close()
-    with open("credentials.login", "w") as credentials_file:
-        credentials_file.write(e+" "+pdigest+"\n")
-
-    with open("users.txt", "w") as users:
-        users.write(e + "\n")
+    
 
     w = workspace.get()
     global ws, send, service
