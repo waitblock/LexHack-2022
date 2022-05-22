@@ -8,7 +8,7 @@ def main():
     creds = auth.authorize()
     service = build('gmail', 'v1', credentials=creds)
 
-    def sendmail(user, subject, content, targets, thread=None):
+    def send(user, subject, content, targets, thread=None):
         if isinstance(targets, str):
             targets = [targets]
         message = MIMEText(content)
@@ -32,8 +32,8 @@ def main():
             message["threadId"] = thread
         body = {"raw": encoded_message, "message": message}
         return service.users().messages().send(userId="me", body=body).execute()
-    return sendmail
+    return send, service
 
 if __name__ == "__main__":
-    sendmail = main()
-    print(sendmail("ez1liang@gmail.com", "test", "test", ["ez1liang@gmail.com", "decordofgammazeroplusone@gmail.com"]))
+    send, service = main()
+    print(send("ez1liang@gmail.com", "test", "test", ["ez1liang@gmail.com", "decordofgammazeroplusone@gmail.com"]))
