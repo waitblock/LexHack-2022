@@ -1,5 +1,4 @@
 import app
-import time
 
 from app import prnt
 

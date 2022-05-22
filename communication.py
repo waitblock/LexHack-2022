@@ -32,6 +32,8 @@ ln = login_lines[0]
 email_username, email_password = ln.split(" ")
 email_password = email_password.replace("\n", "")
 '''
+
+
 def do(username, password, goal_names, goal_times):
     message = f"""\
 Subject: Procrastination Accountability Buddy
