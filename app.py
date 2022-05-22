@@ -3,7 +3,7 @@ import hashlib
 import re
 import sys
 import subprocess
-import webview
+# import webview
 
 import meditation
 import actual_stuff as stf
@@ -42,10 +42,11 @@ def validate_login():
 
 
 def open_meditation():
-    window = webview.create_window("Meditate",
-                                   "https://lexhack-2022-meditate-website.github.io/LexHack-2022-Meditate-Website/",
-                                   width=800, height=600)
-    webview.start()
+    # window = webview.create_window("Meditate",
+    #                                "https://lexhack-2022-meditate-website.github.io/LexHack-2022-Meditate-Website/",
+    #                                width=800, height=600)
+    # webview.start()
+    meditation.meditate(root)
 
 
 # def open_buddy(email):
