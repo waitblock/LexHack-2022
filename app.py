@@ -3,6 +3,7 @@ import hashlib
 import re
 import sys
 import subprocess
+import random
 # import webview
 import webbrowser
 import pygame
@@ -61,7 +62,7 @@ def open_meditation():
 def background_music():
     music = ["forest-lullaby-110624.mp3", "both-of-us-14037"]
     pygame.mixer.init()
-    pygame.mixer.music.load("forest-lullaby-110624.mp3")
+    pygame.mixer.music.load(random.choice(music))
     pygame.mixer.music.play(loops=0)
 
 
