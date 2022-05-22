@@ -9,7 +9,8 @@ def install():
     # installed = freeze.freeze()
 
     for r in requirements:
-        subprocess.Popen([sys.executable, "-m", "pip", "install", r], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
+        subprocess.check_call([sys.executable, "-m", "pip", "install", r])
+        # subprocess.Popen([sys.executable, "-m", "pip", "install", r], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
 
     #     for i in installed:
     #         if r in i:

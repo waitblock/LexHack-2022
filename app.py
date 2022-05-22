@@ -5,6 +5,7 @@ import sys
 import subprocess
 # import webview
 import webbrowser
+import pygame
 
 import meditation
 import actual_stuff as stf
@@ -57,6 +58,9 @@ def open_meditation():
 
 # def open_buddy(email):
 #     root.wm_withdraw()
+
+def background_music():
+    pygame.mixer.music.load("forest-lullaby-110624.mp3")
 
 
 def main_screen_window():
