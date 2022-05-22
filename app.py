@@ -3,6 +3,7 @@ import hashlib
 import re
 import sys
 import subprocess
+import webview
 
 import meditation
 import actual_stuff as stf
@@ -48,14 +49,8 @@ def validate_login():
 
 
 def open_meditation():
-    meditation.meditate(root)
-    # if sys.platform == "win32":
-    #     subprocess.call(["start", "meditate.exe"])
-    # if sys.platform == "win64":
-    #     print("no")
-    # if sys.platform == "darwin":
-    #     subprocess.call(["/usr/bin/open", "-W", "-n", "-a",
-    #                      "meditate.app"])
+    wind = webview.create_window('Hello world', 'https://lexhack-2022-meditate-website.github.io/LexHack-2022-Meditate-Website/')
+    webview.start()
 
 
 # def open_buddy(email):
