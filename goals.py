@@ -15,6 +15,8 @@ with open('goals.txt', 'r+') as goal_file:
 
 
 def pomodoro(o1=print, o2=print):
+    # Ella is really smart
+    # Ella did most of this
     current_goal_time = goal_times[0]
     o1("Please get rid of any distractions")
     timer = current_goal_time / 7 * 60
