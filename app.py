@@ -98,7 +98,7 @@ def main():
     global root, messagedisplay, timedisplay
     root = tk.Tk()
     root.title(f'{APP_NAME}--Login')
-    root.geometry('300x200')
+    root.geometry('350x200')
     root.resizable(False, False)
     # Title
     title = tk.Label(root, text="Login")
@@ -115,7 +115,8 @@ def main():
     workspace = tk.StringVar()
     tk.Entry(root, textvariable=workspace).grid(row=3, column=1)
     tk.Button(root, text="Login", command=validate_login).grid(row=4, column=0)
-
+    tk.Label(root, text="To create a new workspace, enter a list of comma-separated emails", font=("TkDefaultFont", 7)).grid(row=5,columnspan=2)
+    tk.Label(root, text="Alternatively, enter a workspace ID sent to you by a fellow Phokus user", font=("TkDefaultFont", 7)).grid(row=6, columnspan=2)
     root.mainloop()
 
 
