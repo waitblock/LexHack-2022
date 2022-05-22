@@ -3,6 +3,7 @@ import hashlib
 import re
 import sys
 import subprocess
+import webview
 
 import meditation
 import actual_stuff as stf
@@ -65,7 +66,10 @@ def validate_login():
 
 
 def open_meditation():
-    return
+    window = webview.create_window("Meditate",
+                                   "https://lexhack-2022-meditate-website.github.io/LexHack-2022-Meditate-Website/",
+                                   width=800, height=600)
+    webview.start()
 
 
 # def open_buddy(email):
@@ -107,10 +111,10 @@ def main_screen_window():
         main_screen, text="Mood Music", width=20, height=10)
     music_button.grid(row=3, column=10)
 
-    # meditation_button = tk.Button(
-    #     main_screen, text="Meditation", width=20, height=10, command=open_meditation)
     meditation_button = tk.Button(
-            main_screen, text="Meditation", width=20, height=10)
+        main_screen, text="Meditation", width=20, height=10, command=open_meditation)
+    # meditation_button = tk.Button(
+    #         main_screen, text="Meditation", width=20, height=10)
     meditation_button.grid(row=3, column=20)
 
     main_screen.update()
