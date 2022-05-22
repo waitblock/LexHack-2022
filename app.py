@@ -60,7 +60,7 @@ def open_meditation():
 #     root.wm_withdraw()
 
 def background_music():
-    music = ["forest-lullaby-110624.mp3", "both-of-us-14037"]
+    music = ["forest-lullaby-110624.mp3", "both-of-us-14037.mp3"]
     pygame.mixer.init()
     pygame.mixer.music.load(random.choice(music))
     pygame.mixer.music.play(loops=0)
