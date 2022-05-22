@@ -15,7 +15,6 @@ APP_NAME = "Phokus"
 messagedisplay, timedisplay, main_screen = "   "
 ws = ""
 
-
 def fail(e, p):
     ...
 
@@ -60,8 +59,10 @@ def open_meditation():
 #     root.wm_withdraw()
 
 def background_music():
+    music = ["forest-lullaby-110624.mp3", "both-of-us-14037"]
+    pygame.mixer.init()
     pygame.mixer.music.load("forest-lullaby-110624.mp3")
-    pygame.mixer.music.play(Loops=0)
+    pygame.mixer.music.play(loops=0)
 
 
 def main_screen_window():
