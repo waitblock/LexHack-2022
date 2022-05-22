@@ -108,6 +108,7 @@ fabric.properties
 credentials.login
 goals.txt
 users.txt
+meditate.app/*
 
 # google account leaks?
 mail/token.json
