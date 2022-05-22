@@ -13,10 +13,16 @@ def chat_client(email, workspace, members, root):
         messages = service.users().threads().get(userId="me", id=workspace).execute()["messages"]
         for i in messages:
             if "UNREAD" in i["labelIds"]:
-                #print(i)
-                service.users().messages().modify(userId='me', id=i["id"], body={'removeLabelIds': ['UNREAD']}).execute()
-                widget = tk.Label(chat, text=str(base64.urlsafe_b64decode(i["payload"]["body"]["data"]), encoding="utf-8"))
-                widget.pack()
+                service.users().messages().modify(userId='me', id=i["id"],
+                                                  body={'removeLabelIds': ['UNREAD']}).execute()
+                author = "Unknown"
+                if sendmail.get_field(i, "from") is not None:
+                    author = sendmail.get_field(i, "from")
+                if author != email:
+                    widget = tk.Label(chat,
+                                      text=author + ": " + str(base64.urlsafe_b64decode(i["payload"]["body"]["data"]),
+                                                               encoding="utf-8"))
+                    widget.pack()
     def send_message(message):
         send(email, "Phokus", message, members, thread=workspace)
         widget = tk.Label(chat, text="Me: "+message, bg="#9ee3ff")
@@ -30,12 +36,14 @@ def chat_client(email, workspace, members, root):
     for i in messages:
         # print(i)
         service.users().messages().modify(userId='me', id=i["id"], body={'removeLabelIds': ['UNREAD']}).execute()
-        h = i["payload"]["headers"]
         author = "Unknown"
-        for j in h:
-            if j["name"] == "From":
-                author = j["value"]
-        widget = tk.Label(chat, text=author+": "+str(base64.urlsafe_b64decode(i["payload"]["body"]["data"]), encoding="utf-8"))
+        if sendmail.get_field(i, "from") is not None:
+            author = sendmail.get_field(i, "from")
+        if author != email:
+            widget = tk.Label(chat, text=author+": "+str(base64.urlsafe_b64decode(i["payload"]["body"]["data"]), encoding="utf-8"))
+        else:
+            widget = tk.Label(chat, text="Me: " + str(base64.urlsafe_b64decode(i["payload"]["body"]["data"]),
+                                                             encoding="utf-8"), bg="#9ee3ff")
         widget.pack()
     while True:
         time.sleep(0.05)
