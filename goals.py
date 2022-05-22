@@ -17,7 +17,7 @@ with open('goals.txt', 'r+') as goal_file:
 def pomodoro(o1=print, o2=print):
     current_goal_time = goal_times[0]
     o1("Please get rid of any distractions")
-    timer = current_goal_time / 7 * 60
+    timer = 5 * 60
     while timer > 0:
         m = timer // 60
         s = timer % 60
@@ -44,7 +44,7 @@ def pomodoro(o1=print, o2=print):
             timer -= 1
         o1("Get back to work")
     o1("Time to review your work")
-    timer = current_goal_time / 7 * 60
+    timer = 5 * 60
     while timer > 0:
         m = timer // 60
         s = timer % 60
