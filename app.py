@@ -49,13 +49,14 @@ def validate_login():
     global ws, send, service
     from mail import sendmail
     send, service = sendmail.main()
-    if "@" in workspace:
-        msg = send(e, "Phokus Workspace", e.split("@")[0]+" has invited you to a new workspace.", workspace)
+    if "@" in w:
+        msg = send(e, "Phokus Workspace", e.split("@")[0]+" has invited you to a new workspace.", w)
         print(msg)
-        ws = msg["threadId"]
-        send(e, "Phokus Workspace", "Use the code "+ws+" to join.", workspace, ws)
+        ws = msg["id"]
+        print(ws)
+        send(e, "Phokus Workspace", "Use the code "+ws+" to join.", w, ws)
     else:
-        ws = workspace
+        ws = w
 
     main_screen_window()
     return True
