@@ -24,45 +24,21 @@ def show_frame(frame):
 
 def validate_login():
     e = str(email.get())
-    p = str(password.get())
-    pdigest = hashlib.sha512(bytes(p, encoding="utf-8")).hexdigest()
-    if not re.match(r"^\S{1,}@\S{2,}\.\S{2,}$", e):
-        fail(e, p)
-        return False
-    f = open("users.txt")
-    if e + "\n" in f.readlines():  # known user
-        g = open("credentials.login")
-        for i in g.readlines():
-            if i.startswith(e + " "):
-                if i == e + " " + pdigest + "\n":
-                    main_screen_window()
-                    return True
-                fail(e, p)
-                return False
-        g.close()
-    f.close()
-    with open("credentials.login", "w") as credentials_file:
-        credentials_file.write(e+" "+pdigest+"\n")
-
-    with open("users.txt", "w") as users:
-        users.write(e + "\n")
-
     w = workspace.get()
-    global ws, send, service
+    global ws, send, service, partners
     from mail import sendmail
     send, service = sendmail.main()
     if "@" in w:
-        msg = send(e, "Phokus Workspace", e.split("@")
-                   [0]+" has invited you to a new workspace.", w)
-        print(msg)
+        msg = send(e, "Phokus Workspace", e.split("@")[0] + " has invited you to a new workspace.", w)
+
         ws = msg["id"]
-        print(ws)
-        send(e, "Phokus Workspace", "Use the code "+ws+" to join.", w, ws)
+        send(e, "Phokus Workspace", "Use the code " + ws + " to join.", w, ws)
+        partners = w
     else:
         ws = w
-
+        th = service.users().threads().get(userId="me", id=ws).execute()["messages"][-1]
+        partners = sendmail.get_field(th, "to") + "," + sendmail.get_field(th, "from")
     main_screen_window()
-    return True
 
 
 def open_meditation():
@@ -118,11 +94,8 @@ def main_screen_window():
     meditation_button.grid(row=3, column=20)
 
     main_screen.update()
-    stf.mainwindow(main_screen.update, str(email.get()), str(password.get()), main_screen, buddy_button, pomodoro_button, music_button,
-                   meditation_button, prnt, showtimer)
-    main_screen.after(1, lambda: stf.mainwindow(str(email.get()), str(password.get(
-    )), main_screen, buddy_button, pomodoro_button, music_button, meditation_button, prnt, showtimer))
-    main_screen.mainloop()
+    stf.mainwindow(main_screen.update, str(email.get()), main_screen, buddy_button, pomodoro_button, music_button,
+                   meditation_button, prnt, showtimer, ws, partners)
 
 
 def main():
@@ -140,11 +113,6 @@ def main():
     global email
     email = tk.StringVar()
     tk.Entry(root, textvariable=email).grid(row=1, column=1)
-    # Get password
-    tk.Label(root, text="Password").grid(row=2, column=0)
-    global password
-    password = tk.StringVar()
-    tk.Entry(root, textvariable=password, show="*").grid(row=2, column=1)
     # Get workspace
     tk.Label(root, text="Workspace").grid(row=3, column=0)
     global workspace
