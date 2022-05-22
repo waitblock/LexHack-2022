@@ -12,62 +12,43 @@ with open('goals.txt', 'r+') as goal_file:
     print(goal_times)
     print(goal_names)
 
-def pomodoro(goal_times, o1=print, o2=print, update=lambda:0):
+
+def pomodoro(goal_times, o1=print, o2=print):
     # Ella was being really smart and did this not me
     current_goal_time = goal_times[0]
     o1("Please get rid of any distractions")
-    timer = 5*60
-    c = 0
+    timer = 5 * 60
     while timer > 0:
         m = timer // 60
         s = timer % 60
         o2('{:02d}:{:02d}'.format(m, s))
-        time.sleep(0.01)
-        c += 1
-        update()
-        if c == 100:
-            timer -= 1
-            c = 0
-    
+        time.sleep(1)
+        timer -= 1
+
     o1("Begin your work")
     for i in range(current_goal_time // 25):
-        timer = 25*60
+        timer = 25 * 60
         while timer > 0:
             m = timer // 60
             s = timer % 60
             o2('{:02d}:{:02d}'.format(m, s))
-            time.sleep(0.01)
-            c += 1
-            update()
-            if c == 100:
-                timer -= 1
-                c = 0
+            time.sleep(1)
+            timer -= 1
         o1("Time to take a break")
-
-        timer = 5*60
+        timer = 5 * 60
         while timer > 0:
             m = timer // 60
             s = timer % 60
             o2('{:02d}:{:02d}'.format(m, s))
-            time.sleep(0.01)
-            c += 1
-            update()
-            if c == 100:
-                timer -= 1
-                c = 0
+            time.sleep(1)
+            timer -= 1
         o1("Get back to work")
-
     o1("Time to review your work")
-    timer = 5*60
+    timer = 5 * 60
     while timer > 0:
-            m = timer // 60
-            s = timer % 60
-            o2('{:02d}:{:02d}'.format(m, s))
-            time.sleep(0.01)
-            c += 1
-            update()
-            if c == 100:
-                timer -= 1
-                c = 0
-
+        m = timer // 60
+        s = timer % 60
+        o2('{:02d}:{:02d}'.format(m, s))
+        time.sleep(1)
+        timer -= 1
     goal_times.remove(0)
