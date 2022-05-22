@@ -11,9 +11,9 @@ def install():
     for r in requirements:
         subprocess.Popen([sys.executable, "-m", "pip", "install", r], stderr=subprocess.DEVNULL, stdout=subprocess.DEVNULL)
 
-        # for i in installed:
-        #     if r in i:
-        #         pass
-        #     else:
-        #         requirements[requirements.index(r)] = r.replace('\n', '')
-        #         subprocess.check_call([sys.executable, "-m", "pip", "install", r])
+    #     for i in installed:
+    #         if r in i:
+    #             pass
+    #         else:
+    #             requirements[requirements.index(r)] = r.replace('\n', '')
+    #             subprocess.check_call([sys.executable, "-m", "pip", "install", r])
