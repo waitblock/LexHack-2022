@@ -4,6 +4,7 @@ import re
 import sys
 import subprocess
 
+import meditation
 import actual_stuff as stf
 
 APP_NAME = "Phokus"
@@ -18,7 +19,8 @@ def fail(e, p):
 
 def show_frame(frame):
     frame.tkraise()
-    
+
+
 def validate_login():
     e = str(email.get())
     p = str(password.get())
@@ -49,7 +51,8 @@ def validate_login():
     from mail import sendmail
     send, service = sendmail.main()
     if "@" in w:
-        msg = send(e, "Phokus Workspace", e.split("@")[0]+" has invited you to a new workspace.", w)
+        msg = send(e, "Phokus Workspace", e.split("@")
+                   [0]+" has invited you to a new workspace.", w)
         print(msg)
         ws = msg["id"]
         print(ws)
@@ -62,11 +65,14 @@ def validate_login():
 
 
 def open_meditation():
-    if sys.platform == "win32":
-        subprocess.call(["start", "meditate.exe"])
-    if sys.platform == "darwin":
-        subprocess.call(["/usr/bin/open", "-W", "-n", "-a",
-                         "meditate.app"])
+    meditation.meditate(root)
+    # if sys.platform == "win32":
+    #     subprocess.call(["start", "meditate.exe"])
+    # if sys.platform == "win64":
+    #     print("no")
+    # if sys.platform == "darwin":
+    #     subprocess.call(["/usr/bin/open", "-W", "-n", "-a",
+    #                      "meditate.app"])
 
 
 # def open_buddy(email):
