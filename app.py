@@ -4,6 +4,7 @@ import re
 import sys
 import subprocess
 # import webview
+import webbrowser
 
 import meditation
 import actual_stuff as stf
@@ -20,6 +21,10 @@ def fail(e, p):
 
 def show_frame(frame):
     frame.tkraise()
+
+
+def mood_music():
+    webbrowser.open("https://www.youtube.com/watch?v=1ZYbU82GVz4&ab_channel=SoothingRelaxation")
 
 
 def validate_login():
@@ -46,6 +51,7 @@ def open_meditation():
     #                                "https://lexhack-2022-meditate-website.github.io/LexHack-2022-Meditate-Website/",
     #                                width=800, height=600)
     # webview.start()
+    webbrowser.open('https://lexhack-2022-meditate-website.github.io/LexHack-2022-Meditate-Website/')
     meditation.meditate(root)
 
 
@@ -85,7 +91,7 @@ def main_screen_window():
     pomodoro_button.grid(row=2, column=20)
 
     music_button = tk.Button(
-        main_screen, text="Mood Music", width=20, height=10)
+        main_screen, text="Mood Music", width=20, height=10, command=mood_music)
     music_button.grid(row=3, column=10)
 
     meditation_button = tk.Button(
