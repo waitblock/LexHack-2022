@@ -1,5 +1,5 @@
 import tkinter as tk
-import hashlib, re
+import hashlib, re, sys, subprocess
 
 import actual_stuff as stf
 
@@ -41,6 +41,13 @@ def validate_login():
     return True
 
 
+def open_meditation():
+    if sys.platform == "win32":
+        subprocess.call(["start", "meditate.exe"])
+    if sys.platform == "darwin":
+        subprocess.call(["/usr/bin/open", "-W", "-n", "-a",
+                         "meditate.app"])
+
 def main_screen_window():
     global main_screen
     root.wm_withdraw()
@@ -73,12 +80,12 @@ def main_screen_window():
     music_button = tk.Button(main_screen, text="Mood Music", width=20, height=10)
     music_button.grid(row=3, column=10)
 
-    meditation_button = tk.Button(main_screen, text="Meditation", width=20, height=10)
+    meditation_button = tk.Button(main_screen, text="Meditation", width=20, height=10, command=open_meditation)
     meditation_button.grid(row=3, column=20)
     main_screen.update()
     stf.mainwindow(main_screen.update, str(email.get()), str(password.get()), main_screen, buddy_button, pomodoro_button, music_button,
                    meditation_button, prnt, showtimer)
-    #main_screen.after(1, lambda: stf.mainwindow(str(email.get()), str(password.get()), main_screen, buddy_button, pomodoro_button, music_button, meditation_button, prnt, showtimer))
+    main_screen.after(1, lambda: stf.mainwindow(str(email.get()), str(password.get()), main_screen, buddy_button, pomodoro_button, music_button, meditation_button, prnt, showtimer))
     main_screen.mainloop()
 
 
