@@ -107,8 +107,10 @@ def main_screen_window():
         main_screen, text="Mood Music", width=20, height=10)
     music_button.grid(row=3, column=10)
 
+    # meditation_button = tk.Button(
+    #     main_screen, text="Meditation", width=20, height=10, command=open_meditation)
     meditation_button = tk.Button(
-        main_screen, text="Meditation", width=20, height=10, command=open_meditation)
+            main_screen, text="Meditation", width=20, height=10)
     meditation_button.grid(row=3, column=20)
 
     main_screen.update()
