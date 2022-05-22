@@ -6,6 +6,7 @@ from app import prnt
 
 def main():
     installer.install()
+    app.background_music()
     app.main()
     
 

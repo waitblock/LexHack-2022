@@ -61,6 +61,7 @@ def open_meditation():
 
 def background_music():
     pygame.mixer.music.load("forest-lullaby-110624.mp3")
+    pygame.mixer.music.play(Loops=0)
 
 
 def main_screen_window():
