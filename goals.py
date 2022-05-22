@@ -4,7 +4,8 @@ import math
 with open('goals.txt', 'r+') as goal_file:
     goals = goal_file.readlines()
     goal_names = [line.partition('[')[0].replace('\n', '') for line in goals]
-    goal_times = [int(line.partition('[')[2].replace(']', '').replace('\n', '')) for line in goals]
+    goal_times = [int(line.partition('[')[2].replace(
+        ']', '').replace('\n', '')) for line in goals]
 
     if goal_names[-1] == ' ':
         goal_names.pop()
@@ -14,10 +15,9 @@ with open('goals.txt', 'r+') as goal_file:
 
 
 def pomodoro(o1=print, o2=print):
-    # Ella was being really smart and did this not me
     current_goal_time = goal_times[0]
     o1("Please get rid of any distractions")
-    timer = 5 * 60
+    timer = current_goal_time / 7 * 60
     while timer > 0:
         m = timer // 60
         s = timer % 60
@@ -44,7 +44,7 @@ def pomodoro(o1=print, o2=print):
             timer -= 1
         o1("Get back to work")
     o1("Time to review your work")
-    timer = 5 * 60
+    timer = current_goal_time / 7 * 60
     while timer > 0:
         m = timer // 60
         s = timer % 60

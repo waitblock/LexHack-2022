@@ -1,5 +1,8 @@
 import tkinter as tk
-import hashlib, re
+import hashlib
+import re
+import sys
+import subprocess
 
 import actual_stuff as stf
 
@@ -12,15 +15,19 @@ def fail(e, p):
     ...
 
 
+def show_frame(frame):
+    frame.tkraise()
+
+
 def validate_login():
     e = str(email.get())
     p = str(password.get())
-    pdigest = hashlib.sha512(bytes(p,encoding="utf-8")).hexdigest()
+    pdigest = hashlib.sha512(bytes(p, encoding="utf-8")).hexdigest()
     if not re.match(r"^\S{1,}@\S{2,}\.\S{2,}$", e):
         fail(e, p)
         return False
     f = open("users.txt")
-    if e + "\n" in f.readlines(): # known user
+    if e + "\n" in f.readlines():  # known user
         g = open("credentials.login")
         for i in g.readlines():
             if i.startswith(e + " "):
@@ -41,6 +48,18 @@ def validate_login():
     return True
 
 
+def open_meditation():
+    if sys.platform == "win32":
+        subprocess.call(["start", "meditate.exe"])
+    if sys.platform == "darwin":
+        subprocess.call(["/usr/bin/open", "-W", "-n", "-a",
+                         "meditate.app"])
+
+
+# def open_buddy(email):
+#     root.wm_withdraw()
+
+
 def main_screen_window():
     global main_screen
     root.wm_withdraw()
@@ -48,6 +67,10 @@ def main_screen_window():
     main_screen.title(APP_NAME)
     main_screen.geometry('800x600')
     main_screen.resizable(False, False)
+
+    buddy_frame = tk.Frame(root)
+    pomodoro_frame = tk.Frame(root)
+    music_frame = tk.Frame(root)
 
     global messagedisplay, timedisplay
     nwindow = tk.Frame(main_screen)
@@ -64,23 +87,28 @@ def main_screen_window():
     title.config(font=("TkDefaultFont", 40))
     title.grid(row=1, column=0)
 
-    buddy_button = tk.Button(main_screen, text="Buddy Chat/\nTime Remaining", width=20, height=10)
+    buddy_button = tk.Button(
+        main_screen, text="Buddy Chat/\nTime Remaining", width=20, height=10, command=lambda:show_frame(buddy_frame))
     buddy_button.grid(row=2, column=10)
 
-    pomodoro_button = tk.Button(main_screen, text="Pomodoro Timer", width=20, height=10)
+    pomodoro_button = tk.Button(
+        main_screen, text="Pomodoro Timer", width=20, height=10)
     pomodoro_button.grid(row=2, column=20)
 
-    music_button = tk.Button(main_screen, text="Mood Music", width=20, height=10)
+    music_button = tk.Button(
+        main_screen, text="Mood Music", width=20, height=10, command=lambda:show_frame(music_frame))
     music_button.grid(row=3, column=10)
 
-    meditation_button = tk.Button(main_screen, text="Meditation", width=20, height=10)
+    meditation_button = tk.Button(
+        main_screen, text="Meditation", width=20, height=10, command=open_meditation)
     meditation_button.grid(row=3, column=20)
+
     main_screen.update()
     stf.mainwindow(main_screen.update, str(email.get()), str(password.get()), main_screen, buddy_button, pomodoro_button, music_button,
                    meditation_button, prnt, showtimer)
-    #main_screen.after(1, lambda: stf.mainwindow(str(email.get()), str(password.get()), main_screen, buddy_button, pomodoro_button, music_button, meditation_button, prnt, showtimer))
+    main_screen.after(1, lambda: stf.mainwindow(str(email.get()), str(password.get(
+    )), main_screen, buddy_button, pomodoro_button, music_button, meditation_button, prnt, showtimer))
     main_screen.mainloop()
-
 
 
 def main():
@@ -107,13 +135,14 @@ def main():
 
     root.mainloop()
 
+
 def prnt(text):
     messagedisplay.config(text=text)
     main_screen.update()
     print(text)
 
-    
+
 def showtimer(text):
     timedisplay.config(text=text)
     main_screen.update()
-    #print(text)
+    # print(text)
