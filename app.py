@@ -96,7 +96,7 @@ def main_screen_window():
     pomodoro_button.grid(row=2, column=20)
 
     music_button = tk.Button(
-        main_screen, text="Mood Music", width=20, height=10, command=mood_music)
+        main_screen, text="Mood Music", width=20, height=10, command=background_music)
     music_button.grid(row=3, column=10)
 
     meditation_button = tk.Button(
