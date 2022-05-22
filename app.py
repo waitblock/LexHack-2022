@@ -4,6 +4,7 @@ import re
 import sys
 import subprocess
 
+import meditation
 import actual_stuff as stf
 
 APP_NAME = "Phokus"
@@ -19,7 +20,8 @@ def fail(e, p):
 
 def show_frame(frame):
     frame.tkraise()
-    
+
+
 def validate_login():
     e = str(email.get())
 
@@ -46,11 +48,14 @@ def validate_login():
 
 
 def open_meditation():
-    if sys.platform == "win32":
-        subprocess.call(["start", "meditate.exe"])
-    if sys.platform == "darwin":
-        subprocess.call(["/usr/bin/open", "-W", "-n", "-a",
-                         "meditate.app"])
+    meditation.meditate(root)
+    # if sys.platform == "win32":
+    #     subprocess.call(["start", "meditate.exe"])
+    # if sys.platform == "win64":
+    #     print("no")
+    # if sys.platform == "darwin":
+    #     subprocess.call(["/usr/bin/open", "-W", "-n", "-a",
+    #                      "meditate.app"])
 
 
 # def open_buddy(email):
@@ -92,8 +97,10 @@ def main_screen_window():
         main_screen, text="Mood Music", width=20, height=10)
     music_button.grid(row=3, column=10)
 
+    # meditation_button = tk.Button(
+    #     main_screen, text="Meditation", width=20, height=10, command=open_meditation)
     meditation_button = tk.Button(
-        main_screen, text="Meditation", width=20, height=10, command=open_meditation)
+            main_screen, text="Meditation", width=20, height=10)
     meditation_button.grid(row=3, column=20)
 
     main_screen.update()
